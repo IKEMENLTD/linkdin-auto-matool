@@ -144,3 +144,36 @@ export async function bulkArchiveCampaigns(
   const result = await bulkSetStatus(formData, "completed", "campaign.archived");
   return toState(result, "アーカイブ");
 }
+
+const SingleIdSchema = z.object({
+  id: z.string().uuid(),
+  action: z.enum(["pause", "resume", "archive"]),
+});
+
+export async function singleCampaignAction(
+  _prev: BulkActionState | undefined,
+  formData: FormData
+): Promise<BulkActionState> {
+  const parsed = SingleIdSchema.safeParse({
+    id: formData.get("id"),
+    action: formData.get("action"),
+  });
+  if (!parsed.success) {
+    return { ok: false, affected: 0, message: "対象または操作が指定されていません" };
+  }
+  const fakeForm = new FormData();
+  fakeForm.append("ids", parsed.data.id);
+
+  let result: BulkActionState;
+  if (parsed.data.action === "pause") {
+    result = await bulkPauseCampaigns(undefined, fakeForm);
+  } else if (parsed.data.action === "resume") {
+    result = await bulkResumeCampaigns(undefined, fakeForm);
+  } else {
+    result = await bulkArchiveCampaigns(undefined, fakeForm);
+  }
+
+  // 詳細画面の状態 chip を即時更新
+  revalidatePath(`/campaigns/${parsed.data.id}`);
+  return result;
+}

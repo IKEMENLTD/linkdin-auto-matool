@@ -5,8 +5,18 @@ import { Bell, Search, Sparkles, Menu } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { MobileSidebar } from "@/components/app/sidebar";
 
-export function Header({ title, subtitle }: { title: string; subtitle?: string }) {
+export function Header({
+  title,
+  subtitle,
+  as = "h1",
+}: {
+  title: string;
+  subtitle?: string;
+  /** ページ内に別の <h1> がある場合 (キャンペーン詳細など) は "p" に格下げ */
+  as?: "h1" | "p";
+}) {
   const [navOpen, setNavOpen] = React.useState(false);
+  const TitleTag = as;
 
   return (
     <>
@@ -21,9 +31,9 @@ export function Header({ title, subtitle }: { title: string; subtitle?: string }
         </button>
 
         <div className="min-w-0">
-          <h1 className="text-[15px] font-semibold tracking-tight text-ink-900 [color:var(--color-ink-900)]">
+          <TitleTag className="text-[15px] font-semibold tracking-tight text-ink-900 [color:var(--color-ink-900)]">
             {title}
-          </h1>
+          </TitleTag>
           {subtitle && (
             <div className="text-[12px] text-ink-500 [color:var(--color-ink-500)] truncate">
               {subtitle}
