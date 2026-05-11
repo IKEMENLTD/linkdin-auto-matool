@@ -22,9 +22,9 @@ import {
   resumeConnection,
   updateDailyLimit,
   disconnectAccount,
-  INITIAL_CONNECTION_STATE,
   type ConnectionActionState,
 } from "@/server/actions/connections";
+import { INITIAL_CONNECTION_STATE } from "@/lib/action-state";
 import type { LinkedinAccount } from "@/server/queries/connections";
 import { fmtNumber, fmtRelative } from "@/lib/formatters";
 import { cn } from "@/lib/utils";

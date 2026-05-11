@@ -18,14 +18,8 @@ const SignInSchema = z.object({
   next: z.string().optional(),
 });
 
-export type SignInState = {
-  ok: boolean;
-  message?: string;
-  field?: "email" | "form";
-  email?: string;
-};
-
-const INITIAL_SIGN_IN_STATE: SignInState = { ok: false };
+import type { SignInState } from "@/lib/action-state";
+export type { SignInState };
 
 export async function signInWithMagicLink(
   _prev: SignInState | undefined,
@@ -87,7 +81,7 @@ export async function signInWithMagicLink(
   };
 }
 
-export { INITIAL_SIGN_IN_STATE };
+// INITIAL_SIGN_IN_STATE は lib/action-state.ts へ移動 (use server は async のみ export 可)
 
 export async function signOut() {
   const session = await getSession();

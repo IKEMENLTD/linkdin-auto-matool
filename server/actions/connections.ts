@@ -9,12 +9,8 @@ import { writeAudit } from "@/lib/audit";
 import { rateLimit } from "@/lib/rate-limit";
 import { clamp } from "@/lib/utils";
 
-export type ConnectionActionState = {
-  ok: boolean;
-  message?: string;
-};
-
-export const INITIAL_CONNECTION_STATE: ConnectionActionState = { ok: false };
+import type { ConnectionActionState } from "@/lib/action-state";
+export type { ConnectionActionState };
 
 async function requireAdmin() {
   const session = await getSession();

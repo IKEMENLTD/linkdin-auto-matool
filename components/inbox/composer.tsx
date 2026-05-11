@@ -14,9 +14,9 @@ import {
 import { Button } from "@/components/ui/button";
 import {
   sendMessage,
-  INITIAL_SEND_RESULT,
   type SendResult,
 } from "@/server/actions/conversation";
+import { INITIAL_SEND_RESULT } from "@/lib/action-state";
 import { detectDlpViolation } from "@/lib/dlp";
 import { cn } from "@/lib/utils";
 

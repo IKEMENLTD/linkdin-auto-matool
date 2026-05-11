@@ -284,7 +284,7 @@ export const revalidate = 0;
 7. **H-5 / H-6**: `mode: "date"` カラムの取り扱いを統一し、`as unknown as string` を削除。日次集計の Off-by-1 を消す。
 8. **H-10**: `@date-fns/tz` を導入し `Asia/Tokyo` 固定で `format`。サーバ TZ 依存の表示ズレを解消。
 9. **M-3**: SVG `linearGradient` の id を `useId()` ベースに置換。同値 KPI が並んだ時の塗り消失を防止。
-10. **M-1 + L-3**: `state-machine.ts` を単一情報源として `funnelLabels` を撤去 + Tailwind v4 `[color:var(...)]` の二重指定を `text-ink-XXX` に整理。設計書 §3.3 との同期コストを下げる。
+10. **M-1 + L-3**: `state-machine.ts` を単一情報源として `funnelLabels` を撤去 + Tailwind v4 任意セレクタ (color の var 形式) の二重指定を `text-ink-XXX` に整理。設計書 §3.3 との同期コストを下げる。
 
 これらを潰せば、5 軸合計で 18+/20 × 5 ≒ **95 / 100** に到達する見込み。
 

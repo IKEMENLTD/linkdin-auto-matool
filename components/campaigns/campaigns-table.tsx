@@ -26,9 +26,9 @@ import {
   bulkPauseCampaigns,
   bulkResumeCampaigns,
   bulkArchiveCampaigns,
-  INITIAL_BULK_STATE,
   type BulkActionState,
 } from "@/server/actions/campaigns";
+import { INITIAL_BULK_STATE } from "@/lib/action-state";
 import { cn } from "@/lib/utils";
 
 interface Props {

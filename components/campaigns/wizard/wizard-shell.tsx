@@ -34,9 +34,9 @@ import {
 import {
   saveDraft,
   launchCampaign,
-  INITIAL_WIZARD_STATE,
   type WizardActionState,
 } from "@/server/actions/wizard";
+import { INITIAL_WIZARD_STATE } from "@/lib/action-state";
 import { cn } from "@/lib/utils";
 
 const STORAGE_KEY = "linkdin:campaign-wizard:v1";

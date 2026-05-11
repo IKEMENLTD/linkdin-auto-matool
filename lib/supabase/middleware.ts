@@ -49,6 +49,8 @@ export async function updateSession(request: NextRequest) {
     "/api/csp-report",
     "/_next",
     "/favicon",
+    "/icon",
+    "/apple-icon",
   ];
   const isPublic = PUBLIC_PATHS.some((p) => pathname === p || pathname.startsWith(p + "/"));
 

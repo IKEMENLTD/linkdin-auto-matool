@@ -17,9 +17,9 @@ import { CampaignStatusChip } from "@/components/campaigns/campaign-status-chip"
 import { Badge } from "@/components/ui/badge";
 import {
   singleCampaignAction,
-  INITIAL_BULK_STATE,
   type BulkActionState,
 } from "@/server/actions/campaigns";
+import { INITIAL_BULK_STATE } from "@/lib/action-state";
 import type { CampaignStatus } from "@/lib/campaign-status";
 import { cn } from "@/lib/utils";
 

@@ -20,9 +20,9 @@ import { MessageBubble } from "@/components/inbox/message-bubble";
 import { Composer } from "@/components/inbox/composer";
 import {
   markAsMeeting,
-  INITIAL_SEND_RESULT,
   type SendResult,
 } from "@/server/actions/conversation";
+import { INITIAL_SEND_RESULT } from "@/lib/action-state";
 import type { ConversationDetail, ConversationMessage } from "@/server/queries/conversation";
 import { cn, safeExternalUrl } from "@/lib/utils";
 

@@ -7,14 +7,8 @@ import { getDb, schema } from "@/db/client";
 import { getSession, hasAtLeastRole } from "@/lib/auth";
 import { writeAudit } from "@/lib/audit";
 
-export type LeadBulkState = {
-  ok: boolean;
-  affected: number;
-  message?: string;
-  resetSelection?: boolean;
-};
-
-export const INITIAL_LEAD_BULK_STATE: LeadBulkState = { ok: false, affected: 0 };
+import type { LeadBulkState } from "@/lib/action-state";
+export type { LeadBulkState };
 
 const IdsSchema = z.object({
   ids: z.array(z.string().uuid()).min(1, "対象を選択してください").max(500),

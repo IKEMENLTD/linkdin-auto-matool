@@ -9,13 +9,8 @@ import { writeAudit } from "@/lib/audit";
 import { detectDlpViolation } from "@/lib/dlp";
 import { rateLimit } from "@/lib/rate-limit";
 
-export type SendResult = {
-  ok: boolean;
-  messageId?: string;
-  message?: string;
-};
-
-export const INITIAL_SEND_RESULT: SendResult = { ok: false };
+import type { SendResult } from "@/lib/action-state";
+export type { SendResult };
 
 const SendSchema = z.object({
   leadId: z.string().uuid(),

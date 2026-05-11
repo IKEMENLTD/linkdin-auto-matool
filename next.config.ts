@@ -38,7 +38,8 @@ const SECURITY_HEADERS = [
       "base-uri 'self'",
       "form-action 'self'",
       "object-src 'none'",
-      "upgrade-insecure-requests",
+      // upgrade-insecure-requests は Report-Only モードでは無視されるため一旦除外。
+      // Phase2 で Enforce モードに切替えるタイミングで再導入する。
       "report-uri /api/csp-report",
     ].join("; "),
   },

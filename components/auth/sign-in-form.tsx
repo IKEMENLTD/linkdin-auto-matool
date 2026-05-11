@@ -7,8 +7,8 @@ import { Button } from "@/components/ui/button";
 import {
   signInWithMagicLink,
   type SignInState,
-  INITIAL_SIGN_IN_STATE,
 } from "@/server/actions/auth";
+import { INITIAL_SIGN_IN_STATE } from "@/lib/action-state";
 
 function SubmitButton() {
   const { pending } = useFormStatus();

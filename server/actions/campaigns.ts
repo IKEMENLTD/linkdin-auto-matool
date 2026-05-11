@@ -11,15 +11,8 @@ const IdsSchema = z.object({
   ids: z.array(z.string().uuid()).min(1, "対象を選択してください").max(200),
 });
 
-export type BulkActionState = {
-  ok: boolean;
-  affected: number;
-  message?: string;
-  /** 件数選択を伴うアクションでは、空配列にリセットする UI ヒント */
-  resetSelection?: boolean;
-};
-
-export const INITIAL_BULK_STATE: BulkActionState = { ok: false, affected: 0 };
+import type { BulkActionState } from "@/lib/action-state";
+export type { BulkActionState };
 
 type Outcome =
   | { kind: "fail"; message: string }

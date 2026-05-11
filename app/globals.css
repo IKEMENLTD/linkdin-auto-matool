@@ -1,5 +1,10 @@
 @import "tailwindcss";
 
+/* Tailwind v4 のソース自動検出を実装ファイルに限定 (docs/reviews などからの誤抽出を防止) */
+@source not "../docs/**";
+@source not "../node_modules/**";
+@source not "../.next/**";
+
 /*
   Refined Hydro Minimalism — LinkdInside Design System v1
   - 白基調 + 水色グラデ (sky → cyan → teal)

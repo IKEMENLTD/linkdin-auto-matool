@@ -17,9 +17,9 @@ import { fmtNumber, fmtRelative } from "@/lib/formatters";
 import type { LeadListItem } from "@/server/queries/leads";
 import {
   bulkDisqualifyLeads,
-  INITIAL_LEAD_BULK_STATE,
   type LeadBulkState,
 } from "@/server/actions/leads";
+import { INITIAL_LEAD_BULK_STATE } from "@/lib/action-state";
 import { cn } from "@/lib/utils";
 
 interface Props {

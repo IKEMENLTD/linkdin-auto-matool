@@ -18,16 +18,8 @@ import {
   type WizardState,
 } from "@/lib/wizard-schema";
 
-export type WizardActionState = {
-  ok: boolean;
-  message?: string;
-  field?: string;
-  draftId?: string;
-  redirectTo?: string;
-};
-
-const INITIAL: WizardActionState = { ok: false };
-export const INITIAL_WIZARD_STATE = INITIAL;
+import type { WizardActionState } from "@/lib/action-state";
+export type { WizardActionState };
 
 const STATE_MAX_BYTES = 32 * 1024; // 32KB
 

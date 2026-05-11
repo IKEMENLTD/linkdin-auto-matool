@@ -8,8 +8,8 @@ import { getSession, hasAtLeastRole, type Role } from "@/lib/auth";
 import { writeAudit } from "@/lib/audit";
 import { rateLimit } from "@/lib/rate-limit";
 
-export type MemberActionState = { ok: boolean; message?: string };
-export const INITIAL_MEMBER_STATE: MemberActionState = { ok: false };
+import type { MemberActionState } from "@/lib/action-state";
+export type { MemberActionState };
 
 async function requireAdminOrOwner() {
   const session = await getSession();

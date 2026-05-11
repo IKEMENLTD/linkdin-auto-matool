@@ -13,9 +13,9 @@ import { ROLE_LABEL, type Member } from "@/server/queries/members";
 import {
   changeRole,
   deactivateMember,
-  INITIAL_MEMBER_STATE,
   type MemberActionState,
 } from "@/server/actions/members";
+import { INITIAL_MEMBER_STATE } from "@/lib/action-state";
 import type { Role } from "@/lib/auth";
 import { cn } from "@/lib/utils";
 
