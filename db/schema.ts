@@ -172,6 +172,12 @@ export const leads = pgTable(
     orgIdx: index("leads_org_idx").on(t.orgId),
     campIdx: index("leads_camp_idx").on(t.campaignId),
     stateIdx: index("leads_state_idx").on(t.state),
+    /** 受信箱・リード一覧の主要クエリ用複合 index */
+    orgStateActionIdx: index("leads_org_state_action_idx").on(
+      t.orgId,
+      t.state,
+      t.lastActionAt
+    ),
   })
 );
 
@@ -192,6 +198,8 @@ export const messages = pgTable(
   (t) => ({
     leadIdx: index("msg_lead_idx").on(t.leadId),
     sentIdx: index("msg_sent_idx").on(t.sentAt),
+    /** 受信箱の最終メッセージ取得 (row_number partition by lead order by sent_at desc) */
+    leadSentIdx: index("msg_lead_sent_idx").on(t.leadId, t.sentAt),
   })
 );
 

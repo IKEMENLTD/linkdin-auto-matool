@@ -10,7 +10,9 @@ import { randomBytes, randomUUID } from "node:crypto";
  */
 export function newIncidentId(): string {
   const year = new Date().getUTCFullYear();
-  const hex = randomBytes(3).toString("hex").toUpperCase(); // 6 hex chars
+  // 8 hex chars (= 4_294_967_296 通り) で誕生日衝突を実用上 0 にする。
+  // 本番では Phase2 で DB シーケンス (INC-YYYY-NNNN) に置換。
+  const hex = randomBytes(4).toString("hex").toUpperCase();
   return `INC-${year}-${hex}`;
 }
 
