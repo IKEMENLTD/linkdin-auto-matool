@@ -43,6 +43,8 @@ export async function updateSession(request: NextRequest) {
     "/login",
     "/auth/callback",
     "/legal",
+    "/status",
+    "/recovery",
     "/api/health",
     "/api/csp-report",
     "/_next",
