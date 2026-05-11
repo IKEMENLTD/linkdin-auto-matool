@@ -1,7 +1,17 @@
 import "server-only";
 import { createHash } from "node:crypto";
-import { desc, eq } from "drizzle-orm";
+import { desc, eq, sql } from "drizzle-orm";
 import { getDb, schema } from "@/db/client";
+import type { PgTransaction } from "drizzle-orm/pg-core";
+import type { PostgresJsQueryResultHKT } from "drizzle-orm/postgres-js";
+import type { ExtractTablesWithRelations } from "drizzle-orm";
+
+type Schema = typeof schema;
+type AnyTx = PgTransaction<
+  PostgresJsQueryResultHKT,
+  Schema,
+  ExtractTablesWithRelations<Schema>
+>;
 
 export type AuditAction =
   | "auth.signin_requested"
@@ -15,6 +25,10 @@ export type AuditAction =
   | "campaign.archived"
   | "campaign.duplicated"
   | "campaign.deleted"
+  | "lead.disqualified"
+  | "lead.bulk_disqualified"
+  | "lead.requalified"
+  | "lead.assigned"
   | "message.sent"
   | "linkedin.account_connected"
   | "linkedin.account_disconnected"
@@ -42,11 +56,21 @@ interface WriteAuditInput {
  * - 自身の hash = SHA-256(prev_hash || normalized JSON)
  * - DB 未接続時は no-op (MVP デモ運用)
  */
-export async function writeAudit(input: WriteAuditInput): Promise<{ id: string; hash: string } | null> {
-  const db = getDb();
-  if (!db) return null;
+export async function writeAudit(
+  input: WriteAuditInput,
+  tx?: AnyTx
+): Promise<{ id: string; hash: string } | null> {
+  const runner = tx ?? getDb();
+  if (!runner) return null;
 
-  const [previous] = await db
+  // 並行 bulk による hash chain race を防ぐため、org_id 単位で advisory lock を取る。
+  // hashtext(org_id) を 32bit int 化、 pg_advisory_xact_lock は transaction 終了で自動解放。
+  // 単一接続 (tx === undefined) の場合も pg_advisory_lock(...) / pg_advisory_unlock(...) で囲める。
+  if (tx) {
+    await tx.execute(sql`select pg_advisory_xact_lock(hashtext(${input.orgId}))`);
+  }
+
+  const [previous] = await runner
     .select({ hash: schema.auditLog.hash })
     .from(schema.auditLog)
     .where(eq(schema.auditLog.orgId, input.orgId))
@@ -68,7 +92,7 @@ export async function writeAudit(input: WriteAuditInput): Promise<{ id: string; 
   });
   const hash = createHash("sha256").update(prevHash + normalized).digest("hex");
 
-  const [row] = await db
+  const [row] = await runner
     .insert(schema.auditLog)
     .values({
       orgId: input.orgId,
