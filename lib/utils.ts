@@ -4,3 +4,16 @@ import { twMerge } from "tailwind-merge";
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
+
+/**
+ * Postgres `LIKE` / `ILIKE` のメタ文字 (`%` `_` `\`) をエスケープ。
+ * パラメータ化で SQLi は防げるが、ユーザ入力の `%` は全件マッチに化けるため必須。
+ */
+export function escapeLikePattern(input: string): string {
+  return input.replace(/\\/g, "\\\\").replace(/%/g, "\\%").replace(/_/g, "\\_");
+}
+
+/** 数値をクランプ */
+export function clamp(value: number, min: number, max: number): number {
+  return Math.min(max, Math.max(min, value));
+}
