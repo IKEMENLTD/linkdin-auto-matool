@@ -17,3 +17,20 @@ export function escapeLikePattern(input: string): string {
 export function clamp(value: number, min: number, max: number): number {
   return Math.min(max, Math.max(min, value));
 }
+
+/**
+ * 外部リンク用 URL の安全化。
+ * `javascript:` / `data:` / `file:` 等の危険スキームを拒否し、許可された scheme のみ通す。
+ * 不正な値は null を返す → UI 側で表示を抑制すること。
+ */
+export function safeExternalUrl(input: string | null | undefined): string | null {
+  if (!input) return null;
+  const trimmed = input.trim();
+  try {
+    const u = new URL(trimmed);
+    if (u.protocol === "http:" || u.protocol === "https:") return u.toString();
+    return null;
+  } catch {
+    return null;
+  }
+}
