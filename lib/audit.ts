@@ -29,6 +29,7 @@ export type AuditAction =
   | "lead.bulk_disqualified"
   | "lead.requalified"
   | "lead.assigned"
+  | "leads.imported"
   | "member.role_changed"
   | "member.deactivated"
   | "member.reactivated"
