@@ -1,5 +1,6 @@
 import { Logo } from "@/components/brand/logo";
 import { SignInForm } from "@/components/auth/sign-in-form";
+import { LinkedinSigninButton } from "@/components/auth/linkedin-signin-button";
 import { ShieldCheck, Eye } from "lucide-react";
 
 export const metadata = { title: "サインイン" };
@@ -42,6 +43,17 @@ export default async function LoginPage({
             )}
 
             <SignInForm next={next} />
+
+            <div
+              className="my-5 flex items-center gap-3 text-[11px] font-medium tracking-[0.18em] uppercase text-ink-400 [color:var(--color-ink-400)]"
+              aria-hidden
+            >
+              <span className="h-px flex-1 bg-[var(--color-ink-200)]" />
+              <span>または</span>
+              <span className="h-px flex-1 bg-[var(--color-ink-200)]" />
+            </div>
+
+            <LinkedinSigninButton next={next} />
 
             <div className="mt-10 grid grid-cols-2 gap-3 text-[12px]">
               <Trust icon={ShieldCheck} text="SOC 2 / ISMS 対応中" />
